@@ -22,6 +22,18 @@ fields:
     type: "string" 
     required: true 
     description: "知识主题或所属领域，如：长征、建党、抗战、思修、习概、史纲、红色家书、真题、地标"
+  entities:
+    type: "array"
+    required: true
+    default: []
+    items: {type: "string"}
+    description: "实体列表（可为空数组）"
+  tags:
+    type: "array"
+    required: true
+    default: []
+    items: {type: "string"}
+    description: "标签列表（可为空数组）"
   
   # 允许为空字段（适配不同语料特性）
   time:
