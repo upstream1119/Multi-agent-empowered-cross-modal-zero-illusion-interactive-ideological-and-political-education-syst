@@ -1,0 +1,41 @@
+{
+    "project": "多智能体赋能的跨模态零幻觉交互式思政教育系统",
+    "query": "遵义会议在什么背景下召开的？",
+    "query_entities": ["遵义会议", "长征"],
+    "vector_hits": [
+      {
+        "id": "event_1935_001",
+        "source": "中国共产党一百年大事记",
+        "text": "1935年1月，中共中央政治局在长征途中举行遵义会议...",
+        "citation": {
+          "doc": "中国共产党一百年大事记",
+          "section": "1935年",
+          "page": null
+        },
+        "vector_score": 0.85
+      }
+    ],
+    "graph_hits": [
+      {
+        "id": "event_1935_001",
+        "related_entities": ["中央政治局", "长征", "毛泽东"],
+        "graph_score": 0.90
+      }
+    ],
+    "hybrid_hits": [
+      {
+        "id": "event_1935_001",
+        "source": "中国共产党一百年大事记",
+        "text": "1935年1月，中共中央政治局在长征途中举行遵义会议...",
+        "citation": {
+          "doc": "中国共产党一百年大事记",
+          "section": "1935年",
+          "page": null
+        },
+        "vector_score": 0.85,
+        "graph_score": 0.90,
+        "hybrid_score": 0.865
+      }
+    ],
+    "status": "success"
+  }

@@ -1,0 +1,40 @@
+# 项目：多智能体赋能的跨模态零幻觉交互式思政教育系统
+# 版本：V1.1 (2026-04-22)
+
+metadata:
+  project: "Multi-Agent Cross-Modal Zero-Hallucination Ideological Education System"
+  status: "Local Development Phase"
+
+fields:
+  id: {type: "string", required: true, description: "唯一标识符"}
+  source: {type: "string", required: true, description: "原始文件名或文献名"}
+  source_type: 
+    type: "string"
+    required: true
+    enum: ["event_doc", "textbook", "letter", "landmark", "exam"]
+  title: {type: "string", required: true, description: "篇章或事件标题"}
+  text: {type: "string", required: true, description: "清洗后的正文，严禁为空"}
+  chunk_type:
+    type: "string"
+    required: true
+    enum: ["event", "textbook_chunk", "narrative", "qa", "landmark"]
+  topic: 
+    type: "string" 
+    required: true 
+    description: "知识主题或所属领域，如：长征、建党、抗战、思修、习概、史纲、红色家书、真题、地标"
+  
+  # 允许为空字段（适配不同语料特性）
+  time:
+    start: {type: "string", required: false}
+    end: {type: "string", required: false}
+    display: {type: "string", required: false}
+  location:
+    name: {type: "string", required: false}
+    lng: {type: "float", required: false}
+    lat: {type: "float", required: false}
+    coord_sys: {type: "string", required: false, default: "WGS84"}
+  citation:
+    doc: {type: "string", required: true, description: "来源文献全文名"}
+    # ETL规则：如果原始数据没有天然 section，则由清洗脚本自动生成 section，规则为“来源名 + 最小可区分信息”。
+    section: {type: "string", required: true, description: "章节或年份条目（无天然 section 时由 ETL 自动生成）"}
+    page: {type: "integer", required: false, description: "页码"}
