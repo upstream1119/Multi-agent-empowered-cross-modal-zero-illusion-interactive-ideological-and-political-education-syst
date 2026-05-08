@@ -1,0 +1,86 @@
+[
+  {
+    "id": "demo_history_001",
+    "category": "史实",
+    "query": "遵义会议是在什么背景下召开的？",
+    "expected_entities": ["遵义会议"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_history_002",
+    "category": "史实",
+    "query": "遵义会议为什么是党的历史上的转折点？",
+    "expected_entities": ["遵义会议"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_history_003",
+    "category": "史实",
+    "query": "长征途中哪次会议纠正了错误军事指挥？",
+    "expected_entities": ["长征"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_narrative_001",
+    "category": "叙事",
+    "query": "《与妻书》体现了怎样的家国情怀？",
+    "expected_entities": ["与妻书"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_narrative_002",
+    "category": "叙事",
+    "query": "林觉民为什么在家书中强调牺牲与担当？",
+    "expected_entities": ["林觉民"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_narrative_003",
+    "category": "叙事",
+    "query": "《与妻书》的精神价值是什么？",
+    "expected_entities": ["与妻书"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_exam_001",
+    "category": "考点",
+    "query": "中国人民抗日战争胜利的关键是什么？",
+    "expected_entities": ["抗日战争"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_exam_002",
+    "category": "考点",
+    "query": "中国共产党在抗日战争中发挥了什么作用？",
+    "expected_entities": ["抗日战争"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_exam_003",
+    "category": "考点",
+    "query": "为什么说中国共产党是抗战的中流砥柱？",
+    "expected_entities": ["抗日战争"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_geo_001",
+    "category": "地理",
+    "query": "嘉兴南湖在党的历史上有什么重要意义？",
+    "expected_entities": ["嘉兴南湖"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_geo_002",
+    "category": "地理",
+    "query": "红船精神与嘉兴南湖有什么关系？",
+    "expected_entities": ["嘉兴南湖"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_geo_003",
+    "category": "地理",
+    "query": "中共一大为什么会和嘉兴南湖联系在一起？",
+    "expected_entities": ["嘉兴南湖"],
+    "min_hybrid_hits": 3
+  }
+]

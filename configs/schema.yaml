@@ -50,3 +50,27 @@ fields:
     # ETL规则：如果原始数据没有天然 section，则由清洗脚本自动生成 section，规则为“来源名 + 最小可区分信息”。
     section: {type: "string", required: true, description: "章节或年份条目（无天然 section 时由 ETL 自动生成）"}
     page: {type: "integer", required: false, description: "页码"}
+
+example_record:
+  id: "event_1935_001"
+  source: "中国共产党一百年大事记"
+  source_type: "event_doc"
+  title: "遵义会议召开"
+  text: "1935年1月，中共中央政治局在长征途中举行遵义会议。"
+  chunk_type: "event"
+  topic: "长征"
+  entities: ["遵义会议", "长征", "毛泽东"]
+  tags: ["史实", "会议", "党史"]
+  time:
+    start: "1935-01-15"
+    end: null
+    display: "1935年1月"
+  location:
+    name: "遵义"
+    lng: null
+    lat: null
+    coord_sys: "WGS84"
+  citation:
+    doc: "中国共产党一百年大事记"
+    section: "1935年"
+    page: null
