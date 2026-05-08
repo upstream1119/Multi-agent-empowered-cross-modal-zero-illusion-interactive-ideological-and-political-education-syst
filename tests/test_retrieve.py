@@ -8,6 +8,8 @@ from src.retriever.hybrid_retriever import retrieve
 REQUIRED_HYBRID_FIELDS = {
     "id",
     "source",
+    "title",
+    "text",
     "citation",
     "vector_score",
     "graph_score",
@@ -16,7 +18,7 @@ REQUIRED_HYBRID_FIELDS = {
 
 
 def _load_demo_queries() -> list[dict]:
-    path = Path(__file__).with_name("demo_queries.json")
+    path = Path(__file__).with_name("demo_queries_sizheng_history.json")
     return json.loads(path.read_text(encoding="utf-8"))
 
 
@@ -35,9 +37,13 @@ def test_demo_queries_return_expected_evidence(monkeypatch):
 
         for hit in hybrid_hits:
             assert REQUIRED_HYBRID_FIELDS.issubset(hit), case["id"]
+            assert hit["title"], case["id"]
+            assert hit["text"], case["id"]
             assert isinstance(hit["citation"], dict), case["id"]
             assert hit["citation"].get("doc"), case["id"]
             assert hit["citation"].get("section"), case["id"]
+            for keyword in case["expected_citation_keywords"]:
+                assert keyword in hit["citation"].get("doc", ""), case["id"]
 
 
 def test_team_mode_keeps_fixed_empty_contract(monkeypatch):

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "demo_sizheng_001",
+    "category": "思政史",
+    "query": "思想政治教育为什么重要？",
+    "expected_entities": ["思想政治教育"],
+    "expected_citation_keywords": ["中国共产党思想政治教育史"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_sizheng_002",
+    "category": "思政史",
+    "query": "思想政治教育如何服务党的中心任务？",
+    "expected_entities": ["思想政治教育"],
+    "expected_citation_keywords": ["中国共产党思想政治教育史"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_sizheng_003",
+    "category": "思政史",
+    "query": "延安时期思想政治教育有什么特点？",
+    "expected_entities": ["延安时期", "思想政治教育"],
+    "expected_citation_keywords": ["中国共产党思想政治教育史"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_sizheng_004",
+    "category": "思政史",
+    "query": "延安时期思想政治教育与党的建设有什么关系？",
+    "expected_entities": ["延安时期", "思想政治教育", "党的建设"],
+    "expected_citation_keywords": ["中国共产党思想政治教育史"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_sizheng_005",
+    "category": "思政史",
+    "query": "马克思主义理论教育为什么是思想政治教育的重要内容？",
+    "expected_entities": ["马克思主义理论教育", "思想政治教育"],
+    "expected_citation_keywords": ["中国共产党思想政治教育史"],
+    "min_hybrid_hits": 3
+  },
+  {
+    "id": "demo_sizheng_006",
+    "category": "思政史",
+    "query": "思想政治教育如何帮助党员干部形成共同理想？",
+    "expected_entities": ["思想政治教育", "党员干部"],
+    "expected_citation_keywords": ["中国共产党思想政治教育史"],
+    "min_hybrid_hits": 3
+  }
+]
