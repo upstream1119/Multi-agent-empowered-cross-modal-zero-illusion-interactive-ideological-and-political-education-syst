@@ -22,6 +22,10 @@ MOCK_ENTITY_MAP = {
     "嘉兴南湖": "嘉兴南湖",
     "井冈山": "井冈山",
     "延安": "延安",
+    "红色家书": "红色家书",
+    "家书": "红色家书",
+    "精神": "革命精神",
+    "革命精神": "革命精神",
 }
 
 MOCK_KNOWLEDGE_BASE = [
@@ -215,6 +219,7 @@ def retrieve_vector(query: str, query_entities: list[str], top_k: int = VECTOR_T
             {
                 "id": item["id"],
                 "source": item["source"],
+                "title": item["title"],
                 "text": item["text"],
                 "citation": item["citation"],
                 "vector_score": round(score, 3),
@@ -271,6 +276,8 @@ def fuse_results(vector_hits: list[dict], graph_hits: list[dict]) -> list[dict]:
             {
                 "id": hit_id,
                 "source": item["source"],
+                "title": item["title"],
+                "text": item["text"],
                 "citation": item["citation"],
                 "vector_score": vector_score,
                 "graph_score": graph_score,
