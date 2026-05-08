@@ -201,6 +201,11 @@ def _score_graph_hit(query_entities: list[str], item: dict) -> float:
 
 
 def retrieve_vector(query: str, query_entities: list[str], top_k: int = VECTOR_TOP_K) -> list[dict]:
+    """
+    第一路召回：向量语义召回 (Vector Retrieval)
+    架构师视角：利用 Embedding 捕获文本的深层语义。优点是“懂同义词，泛化好”，缺点是“容易不够精准”。
+    未来改造：接入真实的 Embedding 模型 + FAISS 向量数据库。
+    """
     scored_hits = []
     for item in MOCK_KNOWLEDGE_BASE:
         score = _score_vector_hit(query, query_entities, item)
@@ -220,6 +225,11 @@ def retrieve_vector(query: str, query_entities: list[str], top_k: int = VECTOR_T
 
 
 def retrieve_graph(query_entities: list[str], top_k: int = GRAPH_TOP_K) -> list[dict]:
+    """
+    第二路召回：知识图谱召回 (Graph Retrieval)
+    架构师视角：基于实体间的明确关系进行游走。优点是“极其精准，逻辑严密（零幻觉底座）”，缺点是“缺乏语义泛化”。
+    未来改造：接入真实的 Neo4j 图数据库，使用 Cypher 语句查询 1-hop 或 2-hop 关系节点。
+    """
     scored_hits = []
     for item in MOCK_KNOWLEDGE_BASE:
         score = _score_graph_hit(query_entities, item)
@@ -237,9 +247,13 @@ def retrieve_graph(query_entities: list[str], top_k: int = GRAPH_TOP_K) -> list[
 
 
 def fuse_results(vector_hits: list[dict], graph_hits: list[dict]) -> list[dict]:
+    """
+    融合层：多路召回合并与重排 (Reranking & Fusion)
+    架构师视角：采用加权线性组合机制，兼顾“语义丰富度”与“事实准确性”。
+    """
     vector_by_id = {hit["id"]: hit for hit in vector_hits}
     graph_by_id = {hit["id"]: hit for hit in graph_hits}
-    fused_ids = sorted(set(vector_by_id) | set(graph_by_id))
+    fused_ids = sorted(set(vector_by_id) | set(graph_by_id)) # 取两路结果的并集（去重）
     hybrid_hits = []
 
     for hit_id in fused_ids:
@@ -248,6 +262,7 @@ def fuse_results(vector_hits: list[dict], graph_hits: list[dict]) -> list[dict]:
         item = next(entry for entry in MOCK_KNOWLEDGE_BASE if entry["id"] == hit_id)
         vector_score = vector_hit["vector_score"] if vector_hit else 0.0
         graph_score = graph_hit["graph_score"] if graph_hit else 0.0
+        # 核心打分公式：通过 VECTOR_WEIGHT(0.7) 和 GRAPH_WEIGHT(0.3) 调节双路比重，答辩时可强调此参数的可调优性。
         hybrid_score = round(
             vector_score * VECTOR_WEIGHT + graph_score * GRAPH_WEIGHT,
             3,
@@ -286,10 +301,15 @@ def _build_response(
 
 
 def retrieve(query: str) -> dict:
+    """
+    大组长总控台：混合检索的总编排器。
+    不管底层逻辑以后怎么换，这里的 5 步固定流程（实体->向量->图谱->融合->组装）作为工程契约，绝对不能破！
+    """
     query_text = (query or "").strip()
     mode = _resolve_mode()
 
     if mode == MOCK_MODE:
+        # 标准双路召回流水线：
         query_entities = extract_query_entities(query_text)
         vector_hits = retrieve_vector(query_text, query_entities)
         graph_hits = retrieve_graph(query_entities)
