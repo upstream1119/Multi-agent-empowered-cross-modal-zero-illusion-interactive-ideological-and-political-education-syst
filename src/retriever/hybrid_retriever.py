@@ -6,8 +6,9 @@ TEAM_MODE = "team"
 MOCK_MODE = "mock"
 VECTOR_TOP_K = 3
 GRAPH_TOP_K = 3
-VECTOR_WEIGHT = 0.6
-GRAPH_WEIGHT = 0.4
+ALPHA = 0.7
+VECTOR_WEIGHT = ALPHA
+GRAPH_WEIGHT = 1 - ALPHA
 
 # 当前阶段用固定词表演示 query -> entities 的流程，后续替换为真实实体识别。
 MOCK_ENTITY_MAP = {
@@ -17,6 +18,7 @@ MOCK_ENTITY_MAP = {
     "与妻书": "与妻书",
     "林觉民": "林觉民",
     "抗日战争": "抗日战争",
+    "抗战": "抗日战争",
     "嘉兴南湖": "嘉兴南湖",
     "井冈山": "井冈山",
     "延安": "延安",
@@ -166,7 +168,7 @@ def _resolve_mode() -> str:
     return TEAM_MODE
 
 
-def _extract_query_entities(query: str) -> list[str]:
+def extract_query_entities(query: str) -> list[str]:
     entities: list[str] = []
     for keyword, entity in MOCK_ENTITY_MAP.items():
         if keyword in query and entity not in entities:
@@ -198,7 +200,7 @@ def _score_graph_hit(query_entities: list[str], item: dict) -> float:
     return min(score, 0.99)
 
 
-def _retrieve_vector_topk(query: str, query_entities: list[str], top_k: int = VECTOR_TOP_K) -> list[dict]:
+def retrieve_vector(query: str, query_entities: list[str], top_k: int = VECTOR_TOP_K) -> list[dict]:
     scored_hits = []
     for item in MOCK_KNOWLEDGE_BASE:
         score = _score_vector_hit(query, query_entities, item)
@@ -217,7 +219,7 @@ def _retrieve_vector_topk(query: str, query_entities: list[str], top_k: int = VE
     return scored_hits[:top_k]
 
 
-def _retrieve_graph_topk(query_entities: list[str], top_k: int = GRAPH_TOP_K) -> list[dict]:
+def retrieve_graph(query_entities: list[str], top_k: int = GRAPH_TOP_K) -> list[dict]:
     scored_hits = []
     for item in MOCK_KNOWLEDGE_BASE:
         score = _score_graph_hit(query_entities, item)
@@ -234,7 +236,7 @@ def _retrieve_graph_topk(query_entities: list[str], top_k: int = GRAPH_TOP_K) ->
     return scored_hits[:top_k]
 
 
-def _fuse_hits(vector_hits: list[dict], graph_hits: list[dict]) -> list[dict]:
+def fuse_results(vector_hits: list[dict], graph_hits: list[dict]) -> list[dict]:
     vector_by_id = {hit["id"]: hit for hit in vector_hits}
     graph_by_id = {hit["id"]: hit for hit in graph_hits}
     fused_ids = sorted(set(vector_by_id) | set(graph_by_id))
@@ -288,10 +290,10 @@ def retrieve(query: str) -> dict:
     mode = _resolve_mode()
 
     if mode == MOCK_MODE:
-        query_entities = _extract_query_entities(query_text)
-        vector_hits = _retrieve_vector_topk(query_text, query_entities)
-        graph_hits = _retrieve_graph_topk(query_entities)
-        hybrid_hits = _fuse_hits(vector_hits, graph_hits)
+        query_entities = extract_query_entities(query_text)
+        vector_hits = retrieve_vector(query_text, query_entities)
+        graph_hits = retrieve_graph(query_entities)
+        hybrid_hits = fuse_results(vector_hits, graph_hits)
     else:
         query_entities = []
         vector_hits, graph_hits, hybrid_hits = [], [], []

@@ -18,10 +18,10 @@
 - `src/retriever/hybrid_retriever.py`
   - 负责检索中枢逻辑
   - 当前阶段包含：
-    - 查询实体提取
-    - 向量检索骨架
-    - 图谱检索骨架
-    - 融合打分骨架
+    - `extract_query_entities`：查询实体提取
+    - `retrieve_vector`：向量 Top-K 检索骨架
+    - `retrieve_graph`：图谱 Top-K 检索骨架
+    - `fuse_results`：融合打分骨架
     - 标准返回体组装
 
 - `configs/schema.yaml`
@@ -49,6 +49,10 @@
     - 融合排序结果
 
 当前 `mock` 版的意义是锁死流程骨架，而不是替代真实检索系统。
+
+融合分暂按作战文档口径执行：
+
+`hybrid_score = 0.7 * vector_score + 0.3 * graph_score`
 
 ## 4. 返回契约
 
