@@ -1,0 +1,148 @@
+{
+  "metadata": {
+    "name": "timeline_demo_sizheng",
+    "version": "0.2.0",
+    "owner": "yanxinhao",
+    "purpose": "5月线上Demo汇报用时间轴草稿",
+    "scope": "只服务PPT和未来XR时空沙盘说明，不作为正式史料库入库数据",
+    "source_note": "节点内容基于当前demo主题、中国共产党思想政治教育史方向和常见红色地标整理；页码与原书章节需在拿到正式清洗材料后复核。",
+    "coordinate_note": "坐标为WGS84近似坐标，Demo阶段用于地图落点和PPT示意，正式前需逐条复核。"
+  },
+  "events": [
+    {
+      "id": "timeline_sizheng_1921_foundation_001",
+      "title": "1921 建党与思想政治教育起点",
+      "time": {
+        "start": "1921",
+        "end": null,
+        "display": "1921 建党"
+      },
+      "location": {
+        "name": "嘉兴南湖",
+        "lng": 120.7555,
+        "lat": 30.7461,
+        "coord_sys": "WGS84",
+        "precision": "landmark_demo"
+      },
+      "summary": "建党初期，思想政治教育围绕马克思主义理论传播、组织建设和革命动员展开。",
+      "entities": ["中国共产党", "嘉兴南湖", "马克思主义理论教育"],
+      "related_landmarks": ["嘉兴南湖", "上海"],
+      "tags": ["建党", "理论传播", "组织动员"],
+      "visual_role": "timeline_node",
+      "citation": {
+        "doc": "中国共产党思想政治教育史（待复核）",
+        "section": "建党初期相关章节",
+        "page": null,
+        "verification_status": "needs_source_page"
+      }
+    },
+    {
+      "id": "timeline_sizheng_1935_zunyi_002",
+      "title": "1935 遵义会议",
+      "time": {
+        "start": "1935-01-15",
+        "end": "1935-01-17",
+        "display": "1935 遵义会议"
+      },
+      "location": {
+        "name": "遵义",
+        "lng": 106.9373,
+        "lat": 27.7066,
+        "coord_sys": "WGS84",
+        "precision": "city_demo"
+      },
+      "summary": "遵义会议节点用于展示长征叙事、路线教育和党的历史转折。",
+      "entities": ["遵义会议", "长征", "政治路线"],
+      "related_landmarks": ["遵义"],
+      "tags": ["长征", "会议", "历史转折"],
+      "visual_role": "timeline_node",
+      "citation": {
+        "doc": "中国共产党思想政治教育史（待复核）",
+        "section": "长征与遵义会议相关章节",
+        "page": null,
+        "verification_status": "needs_source_page"
+      }
+    },
+    {
+      "id": "timeline_sizheng_yanan_period_003",
+      "title": "延安整风与思想政治教育",
+      "time": {
+        "start": "1942",
+        "end": "1948-03",
+        "display": "1942 延安整风"
+      },
+      "location": {
+        "name": "延安",
+        "lng": 109.4897,
+        "lat": 36.5855,
+        "coord_sys": "WGS84",
+        "precision": "city_demo"
+      },
+      "summary": "延安整风时期，思想政治教育与党的建设、干部教育和群众路线结合起来，强调理论联系实际和服务革命实践。",
+      "entities": ["延安整风", "思想政治教育", "党的建设", "群众路线"],
+      "related_landmarks": ["延安"],
+      "tags": ["延安", "干部教育", "群众路线"],
+      "visual_role": "timeline_node",
+      "citation": {
+        "doc": "中国共产党思想政治教育史（临时验证样例）",
+        "section": "临时验证样例",
+        "page": null,
+        "verification_status": "demo_verified"
+      }
+    },
+    {
+      "id": "timeline_sizheng_war_resistance_004",
+      "title": "抗战时期的群众动员与政治教育",
+      "time": {
+        "start": "1937",
+        "end": "1945",
+        "display": "抗战时期"
+      },
+      "location": {
+        "name": "抗日根据地",
+        "lng": 109.4897,
+        "lat": 36.5855,
+        "coord_sys": "WGS84",
+        "precision": "region_demo"
+      },
+      "summary": "抗战时期可用于展示抗日根据地中的群众动员、统一战线宣传和思想政治教育对抗战实践的支撑。",
+      "entities": ["抗战时期", "群众动员", "思想政治教育"],
+      "related_landmarks": ["抗日根据地", "延安"],
+      "tags": ["抗战", "群众动员", "统一战线"],
+      "visual_role": "timeline_node",
+      "citation": {
+        "doc": "中国共产党思想政治教育史（待复核）",
+        "section": "抗战时期相关章节",
+        "page": null,
+        "verification_status": "needs_source_page"
+      }
+    },
+    {
+      "id": "timeline_sizheng_1949_new_china_005",
+      "title": "1949 新中国成立与执政前后教育转向",
+      "time": {
+        "start": "1949",
+        "end": null,
+        "display": "新中国成立"
+      },
+      "location": {
+        "name": "西柏坡",
+        "lng": 114.1836,
+        "lat": 38.3432,
+        "coord_sys": "WGS84",
+        "precision": "landmark_demo"
+      },
+      "summary": "新中国成立前后，思想政治教育逐步从革命动员转向执政建设、纪律教育和社会整合。",
+      "entities": ["新中国成立", "西柏坡", "党的建设", "纪律教育"],
+      "related_landmarks": ["西柏坡"],
+      "tags": ["新中国成立", "执政准备", "纪律教育"],
+      "visual_role": "timeline_node",
+      "citation": {
+        "doc": "中国共产党思想政治教育史（待复核）",
+        "section": "新中国成立前后相关章节",
+        "page": null,
+        "verification_status": "needs_source_page"
+      }
+    }
+  ]
+}

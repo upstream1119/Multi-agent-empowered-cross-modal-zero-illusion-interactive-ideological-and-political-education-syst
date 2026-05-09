@@ -1,0 +1,73 @@
+{
+  "type": "FeatureCollection",
+  "name": "landmarks_demo",
+  "crs_note": "All coordinates are WGS84 demo coordinates and should be verified before formal use.",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "landmark_1921_jiaxing_nanhu_001",
+        "name": "嘉兴南湖",
+        "category": "红色地标",
+        "time_display": "1921年",
+        "entities": ["嘉兴南湖", "红船精神", "中国共产党"]
+      },
+      "geometry": {"type": "Point", "coordinates": [120.7555, 30.7461]}
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "landmark_1927_jinggangshan_002",
+        "name": "井冈山",
+        "category": "红色地标",
+        "time_display": "井冈山时期",
+        "entities": ["井冈山", "革命根据地", "群众教育"]
+      },
+      "geometry": {"type": "Point", "coordinates": [114.2895, 26.7480]}
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "landmark_1931_ruijin_003",
+        "name": "瑞金",
+        "category": "红色地标",
+        "time_display": "中央苏区时期",
+        "entities": ["瑞金", "中央苏区", "党员干部教育"]
+      },
+      "geometry": {"type": "Point", "coordinates": [116.0271, 25.8862]}
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "landmark_1935_zunyi_004",
+        "name": "遵义",
+        "category": "红色地标",
+        "time_display": "1935年1月15日至17日",
+        "entities": ["遵义会议", "遵义", "长征"]
+      },
+      "geometry": {"type": "Point", "coordinates": [106.9373, 27.7066]}
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "landmark_1935_yanan_005",
+        "name": "延安",
+        "category": "红色地标",
+        "time_display": "延安时期",
+        "entities": ["延安时期", "思想政治教育", "党的建设", "群众路线"]
+      },
+      "geometry": {"type": "Point", "coordinates": [109.4897, 36.5855]}
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "landmark_1948_xibaipo_006",
+        "name": "西柏坡",
+        "category": "红色地标",
+        "time_display": "解放战争后期",
+        "entities": ["西柏坡", "党的建设", "纪律教育"]
+      },
+      "geometry": {"type": "Point", "coordinates": [114.1836, 38.3432]}
+    }
+  ]
+}
