@@ -1,7 +1,7 @@
 {
   "type": "FeatureCollection",
   "name": "landmarks_demo",
-  "crs_note": "All coordinates are WGS84 demo coordinates and should be verified before formal use.",
+  "crs_note": "当前全部坐标统一使用 WGS84。坐标为5月Demo展示用近似点位，不是正式测绘坐标；正式展示或前端联调前需逐点复核。",
   "features": [
     {
       "type": "Feature",
@@ -9,7 +9,11 @@
         "id": "landmark_1921_jiaxing_nanhu_001",
         "name": "嘉兴南湖",
         "category": "红色地标",
+        "coord_sys": "WGS84",
+        "precision": "landmark_demo",
+        "coordinate_note": "Demo级近似点位，后续需复核具体景区/纪念馆点位。",
         "time_display": "1921年",
+        "source_basis": "红色地标公开介绍、建党主题展示素材和5月Demo时空沙盘需求。",
         "entities": ["嘉兴南湖", "红船精神", "中国共产党"]
       },
       "geometry": {"type": "Point", "coordinates": [120.7555, 30.7461]}
@@ -20,7 +24,11 @@
         "id": "landmark_1927_jinggangshan_002",
         "name": "井冈山",
         "category": "红色地标",
+        "coord_sys": "WGS84",
+        "precision": "city_demo",
+        "coordinate_note": "Demo级城市/区域近似点位，不代表正式测绘坐标。",
         "time_display": "井冈山时期",
+        "source_basis": "土地革命时期思想政治教育、革命根据地建设和群众动员相关叙述。",
         "entities": ["井冈山", "革命根据地", "群众教育"]
       },
       "geometry": {"type": "Point", "coordinates": [114.2895, 26.7480]}
@@ -31,7 +39,11 @@
         "id": "landmark_1931_ruijin_003",
         "name": "瑞金",
         "category": "红色地标",
+        "coord_sys": "WGS84",
+        "precision": "city_demo",
+        "coordinate_note": "Demo级城市近似点位，正式版本需定位具体纪念场馆或旧址。",
         "time_display": "中央苏区时期",
+        "source_basis": "中央苏区时期干部教育、群众宣传和组织动员相关内容。",
         "entities": ["瑞金", "中央苏区", "党员干部教育"]
       },
       "geometry": {"type": "Point", "coordinates": [116.0271, 25.8862]}
@@ -42,7 +54,11 @@
         "id": "landmark_1935_zunyi_004",
         "name": "遵义",
         "category": "红色地标",
+        "coord_sys": "WGS84",
+        "precision": "city_demo",
+        "coordinate_note": "Demo级城市近似点位；正式版本可改为遵义会议会址坐标。",
         "time_display": "1935年1月15日至17日",
+        "source_basis": "遵义会议在长征和党的历史转折叙事中的常见权威表述。",
         "entities": ["遵义会议", "遵义", "长征"]
       },
       "geometry": {"type": "Point", "coordinates": [106.9373, 27.7066]}
@@ -53,7 +69,11 @@
         "id": "landmark_1935_yanan_005",
         "name": "延安",
         "category": "红色地标",
+        "coord_sys": "WGS84",
+        "precision": "city_demo",
+        "coordinate_note": "Demo级城市近似点位，正式版本需结合具体旧址或纪念馆复核。",
         "time_display": "延安时期",
+        "source_basis": "仓库 text_chunks_demo.jsonl 中已验证的延安时期样例。",
         "entities": ["延安时期", "思想政治教育", "党的建设", "群众路线"]
       },
       "geometry": {"type": "Point", "coordinates": [109.4897, 36.5855]}
@@ -64,7 +84,11 @@
         "id": "landmark_1948_xibaipo_006",
         "name": "西柏坡",
         "category": "红色地标",
+        "coord_sys": "WGS84",
+        "precision": "landmark_demo",
+        "coordinate_note": "Demo级地标近似点位，正式版本需复核具体纪念馆/旧址点位。",
         "time_display": "解放战争后期",
+        "source_basis": "解放战争后期党的建设、纪律教育和执政准备相关叙述。",
         "entities": ["西柏坡", "党的建设", "纪律教育"]
       },
       "geometry": {"type": "Point", "coordinates": [114.1836, 38.3432]}
