@@ -1,4 +1,4 @@
-# 严欣浩 5月Demo展示素材说明
+﻿# 严欣浩 5月Demo展示素材说明
 
 ## 1. 当前任务边界
 
@@ -16,15 +16,15 @@
 
 ### 图片文件
 
-- `docs/figures/system_pipeline.png`
+- `../figures/system_pipeline.png`
   - 主题：思政历史 KG-RAG Demo 系统总体链路图。
   - 作用：说明用户问题如何经过 `/retrieve`、实体识别、双路召回、融合排序、多智能体审查，最终得到可信回答。
 
-- `docs/figures/kg_rag_flow.png`
+- `../figures/kg_rag_flow.png`
   - 主题：KG-RAG 证据检索与融合打分流程图。
   - 作用：说明我们不是普通 RAG，而是 `vector_hits + graph_hits -> hybrid_hits + citation`。
 
-- `docs/figures/future_sandbox_demo.png`
+- `../figures/future_sandbox_demo.png`
   - 主题：XR 时空沙盘与思政知识交互设想图。
   - 作用：说明未来如何把红色地标、时间轴、KG-RAG 证据卡片和数字人讲解连接起来。
 
@@ -44,14 +44,14 @@
 
 ### 脚本文件
 
-- `scripts/draw_demo_figures.py`
+- `../scripts/draw_demo_figures.py`
   - 使用 Python + matplotlib 生成三张 PNG。
   - 如果要改图，不建议直接手动改 PNG，优先改这个脚本后重新运行。
 
 运行命令：
 
 ```powershell
-python -X utf8 scripts/draw_demo_figures.py
+python -X utf8 team_deliverables/yanxinhao/2026-05-demo-assets/scripts/draw_demo_figures.py
 ```
 
 ## 3. 为什么这样设计
@@ -77,3 +77,4 @@ python -X utf8 scripts/draw_demo_figures.py
 这些节点后续可以和 `/retrieve` 的返回结果连接：当用户点击地标或提出问题后，系统先通过 KG-RAG 返回带 citation 的证据，再根据实体匹配时间轴和地图节点，最终在 XR 沙盘中高亮相关地点，并展示可追溯的证据卡片。
 
 因此，我这部分工作的作用不是替代检索系统，而是说明当前 KG-RAG 底座未来如何升级为可交互、可视化、可下钻的时空思政教育体验。
+
