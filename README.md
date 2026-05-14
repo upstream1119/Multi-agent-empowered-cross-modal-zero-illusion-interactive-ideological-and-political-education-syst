@@ -1,51 +1,127 @@
-﻿# 多智能体赋能的跨模态零幻觉交互式思政教育系统
+# 面向思政教育的可溯源多智能体跨模态交互系统
 
-本项目面向思政教育场景，探索用 KG-RAG、多智能体协同、Citation 溯源和后续时空沙盘交互，构建一个可解释、可审查、可扩展的思政教育 Demo 系统。
+本项目是国家级大学生创新创业训练计划项目，面向思政教育场景，探索将 KG-RAG、多智能体协同、Citation 溯源、政治安全审查与跨模态交互展示结合起来，构建一个可解释、可审查、可扩展的智能教学辅助系统。
 
-当前阶段重点不是完整最终系统，而是围绕《中国共产党思想政治教育史》资料，先跑通本地 KG-RAG 最小可用链路。
+系统最终目标不是普通问答机器人，而是围绕思政历史事件、人物、地点、文本材料和思想脉络，提供证据化检索、生成审查、溯源展示与交互式学习支持。
 
-## 1. 当前阶段
+项目按一年周期分阶段开发。当前仓库优先建设可溯源 KG-RAG 后端、稳定 API 契约和检索验证链路，为后续多智能体审查、跨模态展示和时空沙盘交互层提供基础。
 
-当前处于 5 月 Demo 冲刺阶段：
+## 1. 项目愿景
 
-- 已完成 FastAPI 最小接口。
-- 已完成 `/health` 和 `/retrieve`。
-- 已固定 `/retrieve` 返回结构。
-- 已完成 `configs/schema.yaml` 初版数据 Schema。
-- 已完成 `src/retriever/hybrid_retriever.py` 的混合检索骨架。
-- 已支持读取 `data/processed/text_chunks_demo.jsonl`。
-- 已建立思政史展示问题集初版和自动验收脚本。
-- 已建立 `team_deliverables/` 管理非核心阶段交付物。
+思政教育材料通常具有时间跨度长、人物事件多、叙事链条复杂、表达口径要求高等特点。普通大模型容易在没有明确证据的情况下生成看似合理但来源不明的回答，这不适合用于教学辅助场景。
 
-尚未完成：
+本项目希望构建一个以“证据、审查、交互”为核心的智能系统：
+
+- 用 KG-RAG 组织思政历史材料、人物、地点、事件和思想脉络。
+- 用多智能体工作流拆分检索、生成、溯源审查和政治安全审查。
+- 用 Citation 溯源让回答可追踪、可检查、可复核。
+- 用时间线、地图、事件卡片、数字人或 XR 沙盘等方式提升交互式学习体验。
+
+## 2. 为什么需要这个系统
+
+思政教育不是普通开放域聊天任务。系统需要解决的问题包括：
+
+- 材料分散：历史事件、人物关系、文献片段和地理信息需要结构化组织。
+- 口径敏感：回答必须保持来源可追溯、表达可审查，不能随意扩展。
+- 学习体验单一：传统文本阅读难以展示时间、空间和事件之间的关系。
+- 大模型风险：生成内容可能出现无来源结论、事实混淆或表达不稳。
+
+因此，本项目强调“先检索证据，再生成回答，再审查输出”，而不是让模型直接自由发挥。
+
+## 3. 总体架构
+
+目标系统架构如下：
+
+```text
+User Query
+    |
+    v
+Intent Router
+    |
+    v
+Hybrid Retriever
+    |
+    v
+Knowledge Graph Reasoner
+    |
+    v
+Generation Agent
+    |
+    v
+Citation Auditor
+    |
+    v
+Political Safety Auditor
+    |
+    v
+Cross-modal Interaction Layer
+```
+
+核心模块说明：
+
+- Intent Router：识别用户问题意图，判断需要文本检索、图谱推理还是跨模态展示。
+- Hybrid Retriever：结合关键词、向量检索和结构化字段返回候选证据。
+- Knowledge Graph Reasoner：围绕人物、事件、地点、时间线和思想脉络进行结构化关联。
+- Generation Agent：基于证据片段生成教学辅助回答。
+- Citation Auditor：检查回答是否有可追溯来源。
+- Political Safety Auditor：检查输出表达是否符合思政教育场景的安全边界。
+- Cross-modal Interaction Layer：承接时间线、地图、事件卡片、数字人或 XR 沙盘等交互展示。
+
+## 4. 核心能力
+
+规划中的系统能力包括：
+
+- KG-RAG 思政历史知识检索。
+- 多智能体生成与审查工作流。
+- Citation-grounded answer generation。
+- 政治安全与表达一致性审查。
+- 基于时间、地点、人物和事件的结构化展示。
+- 面向教学演示的跨模态交互层。
+- 后续 XR 时空沙盘、数字人讲解和沉浸式课堂扩展。
+
+## 5. 当前开发状态
+
+当前仓库处于基础设施建设阶段，已经完成：
+
+- FastAPI 最小接口。
+- `/health` 和 `/retrieve`。
+- `/retrieve` 返回结构固定。
+- `configs/schema.yaml` 初版数据 Schema。
+- `src/retriever/hybrid_retriever.py` 混合检索骨架。
+- `data/processed/text_chunks_demo.jsonl` 读取支持。
+- 思政史展示问题集初版和自动验收脚本。
+- `team_deliverables/` 阶段性交付物管理目录。
+
+正在推进或后续计划包括：
 
 - 正式 FAISS 向量库。
 - 正式 NetworkX 知识图谱。
-- 真实 GraphSim。
+- GraphSim 图谱相似度。
 - 生成智能体、溯源审查智能体、政治红线审查智能体联调。
-- XR 时空沙盘前端。
+- 时间线 / 地图 / 事件卡片等交互式前端。
+- XR 时空沙盘与数字人展示层。
 
-## 2. 目录分工
+## 6. 目录分工
 
 ```text
-src/                  核心后端代码
-configs/              Schema 与接口契约配置
-data/                 系统运行会读取的数据
-tests/                自动化测试与正式验收集
-team_deliverables/    非核心阶段交付物、汇报素材、草稿和说明文档
-outputs/              本地运行产物
-README_run.md         本地运行说明
+src/                   核心后端代码
+configs/               Schema 与接口契约配置
+data/                  系统运行会读取的数据
+tests/                 自动化测试与正式验收集
+team_deliverables/     非核心阶段交付物、汇报素材、草稿和说明文档
+outputs/               本地运行产物
+README_run.md          本地运行说明
 README_architecture.md 检索中枢架构说明
 ```
 
-重要原则：
+目录原则：
 
 - 正式代码不放 `team_deliverables/`。
 - 系统运行会读取的数据不放 `team_deliverables/`。
-- 成员的说明文档、汇报素材、草稿、交付记录和辅助绘图脚本可以放 `team_deliverables/`。
+- 成员说明文档、汇报素材、草稿、交付记录和辅助绘图脚本可以放 `team_deliverables/`。
 - 正式代码应在成员个人分支开发，经负责人审核和测试后合并到 `main` 的正式目录。
 
-## 3. 快速启动
+## 7. 快速启动
 
 建议使用项目虚拟环境：
 
@@ -80,7 +156,7 @@ POST /retrieve
 }
 ```
 
-## 4. 检索接口返回结构
+## 8. API 契约
 
 `/retrieve` 当前返回：
 
@@ -88,83 +164,25 @@ POST /retrieve
 - `project`
 - `query`
 - `query_entities`
-- `vector_hits`
-- `graph_hits`
-- `hybrid_hits`
+- `citations`
+- `answer`
+- `debug`
 
-其中：
+接口契约会随着图谱推理、生成智能体和审查智能体接入继续扩展，但会优先保证前端与后端协作时的结构稳定。
 
-- `query_entities`：从用户问题中识别出的关键实体。
-- `vector_hits`：文本语义或关键词召回候选。
-- `graph_hits`：实体关系召回候选。
-- `hybrid_hits`：融合排序后的证据候选。
-- `citation`：证据来源，是后续零幻觉审查的基础。
+## 9. 路线图
 
-当前融合公式：
+| 阶段 | 目标 |
+| --- | --- |
+| Phase 1 | 建立 KG-RAG 后端、schema、检索接口和验收问题集 |
+| Phase 2 | 接入正式向量库与知识图谱，增强实体、事件和时间线关联 |
+| Phase 3 | 接入生成智能体、Citation 审查智能体和政治安全审查智能体 |
+| Phase 4 | 构建时间线、地图、事件卡片等交互式展示层 |
+| Phase 5 | 扩展 XR 时空沙盘、数字人讲解和课堂演示流程 |
 
-```text
-hybrid_score = 0.7 * vector_score + 0.3 * graph_score
-```
+## 10. 安全与使用边界
 
-## 5. 本地 mock 模式
-
-默认不设置环境变量时是 `team` 模式，返回固定结构但不主动构造 mock 命中。
-
-如需在本地演示当前 Demo 数据，当前终端设置：
-
-```cmd
-set DACHUANG_RETRIEVE_MODE=mock
-set DACHUANG_LOCAL_MOCK_ACK=1
-uvicorn src.api.main:app --reload
-```
-
-PowerShell 示例：
-
-```powershell
-$env:DACHUANG_RETRIEVE_MODE="mock"
-$env:DACHUANG_LOCAL_MOCK_ACK="1"
-uvicorn src.api.main:app --reload
-```
-
-不要使用 `setx` 持久化这些变量。
-
-## 6. 测试
-
-运行当前检索验收测试：
-
-```powershell
-conda run -n dachuang_2026 python -m pytest tests/test_retrieve.py -q
-```
-
-当前测试主要验证：
-
-- mock 模式下展示问题能返回期望证据结构。
-- team 默认模式保持固定空结构契约。
-
-## 7. 成员分支与交付规则
-
-当前远程分支：
-
-- `main`
-- `pengyihan`
-- `lizhuoyang`
-- `zhangbohan`
-- `zhangruiyang`
-- `yanxinhao`
-
-协作规则：
-
-1. 正式代码在个人分支开发。
-2. 负责人审核代码和测试结果。
-3. 通过后再合并到 `main`。
-4. 阶段说明、汇报素材、草稿、辅助绘图脚本放入 `team_deliverables/成员拼音/YYYY-MM-任务名/`。
-5. 系统正式读取的数据仍放 `data/`。
-6. 正式测试和验收集仍放 `tests/`。
-
-## 8. 相关文档
-
-- `README_run.md`：本地运行说明。
-- `README_architecture.md`：检索中枢架构说明。
-- `team_deliverables/README.md`：成员阶段性交付物管理规范。
-- `configs/schema.yaml`：数据 Schema 初版。
-- `configs/retrieve_response.json`：检索返回样例契约。
+- 本系统用于思政教育辅助、教学展示和知识检索，不替代教师判断。
+- 生成内容必须经过 Citation 溯源和安全审查后再用于正式展示。
+- 对缺乏来源支撑的问题，系统应优先提示证据不足，而不是生成无来源结论。
+- 政治安全审查模块属于系统核心环节，不能被前端展示效果替代。
