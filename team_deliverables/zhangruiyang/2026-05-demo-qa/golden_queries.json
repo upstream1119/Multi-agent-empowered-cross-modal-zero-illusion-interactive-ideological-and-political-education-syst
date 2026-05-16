@@ -1,0 +1,52 @@
+﻿[
+  {
+    "question": "新时代思想政治教育的核心目标是什么？",
+    "standard_answer": "新时代思想政治教育的核心目标是立德树人，培养担当民族复兴大任的时代新人，引导学生树立正确的世界观、人生观、价值观。",
+    "expected_chunk_ids": ["text_chunk_001", "text_chunk_003"]
+  },
+  {
+    "question": "思想政治教育中如何落实立德树人根本任务？",
+    "standard_answer": "落实立德树人根本任务需要将价值引领贯穿教育教学全过程，强化理想信念教育、爱国主义教育，构建全员全程全方位育人大格局。",
+    "expected_chunk_ids": ["text_chunk_002", "text_chunk_005"]
+  },
+  {
+    "question": "爱国主义教育在思政教育中占据什么地位？",
+    "standard_answer": "爱国主义教育是思想政治教育的重要内容和永恒主题，是凝聚民族精神、增强文化自信的核心支撑。",
+    "expected_chunk_ids": ["text_chunk_004", "text_chunk_006"]
+  },
+  {
+    "question": "思政教育为什么要坚持理论联系实际？",
+    "standard_answer": "坚持理论联系实际能够让思政教育更具针对性和实效性，避免空洞说教，使理论知识与现实生活、社会实践相结合。",
+    "expected_chunk_ids": ["text_chunk_007", "text_chunk_008"]
+  },
+  {
+    "question": "理想信念教育的主要内容包括哪些？",
+    "standard_answer": "理想信念教育主要包括马克思主义信仰教育、中国特色社会主义信念教育、共产主义远大理想和中国特色社会主义共同理想教育。",
+    "expected_chunk_ids": ["text_chunk_003", "text_chunk_009"]
+  },
+  {
+    "question": "如何提升大学生思想政治教育的吸引力？",
+    "standard_answer": "提升吸引力需要创新教育方式，运用数字化、交互式手段，结合学生兴趣点开展实践教学、案例教学，增强互动性与体验感。",
+    "expected_chunk_ids": ["text_chunk_010", "text_chunk_005"]
+  },
+  {
+    "question": "社会主义核心价值观的基本内容是什么？",
+    "standard_answer": "国家层面：富强、民主、文明、和谐；社会层面：自由、平等、公正、法治；公民层面：爱国、敬业、诚信、友善。",
+    "expected_chunk_ids": ["text_chunk_006", "text_chunk_004"]
+  },
+  {
+    "question": "思政教育中的文化自信教育重点是什么？",
+    "standard_answer": "重点是弘扬中华优秀传统文化、革命文化和社会主义先进文化，引导学生认同并传承中国特色社会主义文化。",
+    "expected_chunk_ids": ["text_chunk_008", "text_chunk_001"]
+  },
+  {
+    "question": "全员全程全方位育人的内涵是什么？",
+    "standard_answer": "指所有教职工共同承担育人职责，将育人融入教育教学、管理服务、社会实践等各个环节，实现育人无死角。",
+    "expected_chunk_ids": ["text_chunk_002", "text_chunk_009"]
+  },
+  {
+    "question": "数字化技术对思政教育有哪些推动作用？",
+    "standard_answer": "数字化技术能够拓展思政教育的场景与渠道，实现跨模态交互、精准化推送、个性化辅导，提升教育效率与覆盖范围。",
+    "expected_chunk_ids": ["text_chunk_010", "text_chunk_007"]
+  }
+]
