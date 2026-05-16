@@ -1,44 +1,119 @@
-# 多智能体跨模态零幻觉思政系统 Demo 演示验收核对清单
-## 一、前置环境准备核对
-- [ ] 已拉取最新 pengyihan 分支，40条 text_chunks_demo.jsonl 正常加载
-- [ ] 本地切换至 zhangruiyang 分支，所有修改仅提交当前分支
-- [ ] 混合检索 Mock 服务启动正常，检索接口无报错
-- [ ] 所有 JSONL 数据通过 validate_jsonl.py 格式强校验
-- [ ] 统一约定：暂不使用 citation.page 字段，仅使用 citation.doc + citation.section
+# Demo Acceptance Checklist
 
-## 二、展示问题集交付验收
-- [ ] 完成 8 条标准演示问题编写，数量符合 8-10 条要求
-- [ ] 每条问题完整包含全部必填字段：query、expected_entities、expected_citation_keywords、min_hybrid_hits、expected_chunk_ids、expected_citation_sections、is_core_demo、is_suitable_for_demo
-- [ ] expected_chunk_ids 与 text_chunks_demo.jsonl 中的真实 chunk ID 完全匹配
-- [ ] expected_citation_sections 与文本块中的 citation.section 精准对应
-- [ ] 明确标记 3 条核心必演问题（is_core_demo=true），且必演问题均标记为适合演示（is_suitable_for_demo=true）
-- [ ] 问题贴合思政历史场景，匹配现有演示文本内容，无脱离文本的无效问题
+## 1. 当前 10 条 query 适应性评估
 
-## 三、混合检索能力校验
-- [ ] 调用检索接口可正常召回满足 min_hybrid_hits 数量的文本块
-- [ ] 实际命中的 chunk ID 包含 expected_chunk_ids 中的至少1个（达标）
-- [ ] 预期实体可在检索结果内容中精准匹配命中
-- [ ] 预期引用关键词可在 citation 溯源内容中匹配成功
-- [ ] 检索返回的 citation.section 包含 expected_citation_sections 中的内容
-- [ ] 检索返回字段完整：内容、来源、段落、ChunkID、引用信息齐全
-- [ ] 无无效幻觉内容，所有回答严格依赖检索原文生成
+- `demo_sizheng_001` ~ `demo_sizheng_005`, `demo_sizheng_009`：非常适合作为核心展示问题，覆盖思政史体系性的历史节点与典型事件。
+- `demo_sizheng_006`、`demo_sizheng_007`、`demo_sizheng_008`、`demo_sizheng_010`：适合做专项补充问题，能展示系统在细节性检索和引用准确性方面的能力。
+- 总体结论：10 条问题均可用于汇报展示，既包含宏观历史脉络，也兼顾专题性、可操作性和 citation 展示效果。
 
-## 四、API 接口统一验收
-- [ ] 问答请求入参格式统一规范
-- [ ] 检索结果出参结构与预定义返回结构完全对齐
-- [ ] 多轮历史对话上下文关联调用正常
-- [ ] 实体抽取、关键词溯源字段返回稳定可用
-- [ ] 批量评测、单条调试接口均可正常调用
+## 2. expected_chunk_ids 与真实文本一致性
 
-## 五、演示现场前置检查
-- [ ] 3条核心必演问题（is_core_demo=true）本地预跑全部通过
-- [ ] 每条演示问题确认溯源来源清晰可查，expected_chunk_ids 和 expected_citation_sections 均匹配成功
-- [ ] 演示流程顺序梳理完成，优先演示3条核心必演问题，无顺序冲突
-- [ ] 关键演示节点截图点位提前规划完毕
-- [ ] 自动验收脚本可对展示问题批量执行评测，新增字段可正常识别
+已核对当前 `data/processed/text_chunks_demo.jsonl` 中的 chunk ID：
 
-## 六、最终提交规范
-- [ ] 演示问题 JSON 文件提交至 zhangruiyang 分支 tests 目录
-- [ ] 本验收清单文档提交至项目根目录
-- [ ] 提交前确认无代码冲突、无冗余测试数据
-- [ ] 确认完成后可申请分支合并与联合调试
+- `demo_sizheng_001`：`chunk_szzjys_demo_001`, `chunk_szzjys_demo_002`
+- `demo_sizheng_002`：`chunk_szzjys_demo_003`, `chunk_szzjys_demo_004`
+- `demo_sizheng_003`：`chunk_szzjys_demo_006`
+- `demo_sizheng_004`：`chunk_szzjys_demo_012`
+- `demo_sizheng_005`：`chunk_szzjys_demo_017`
+- `demo_sizheng_006`：`chunk_szzjys_demo_013`
+- `demo_sizheng_007`：`chunk_szzjys_demo_022`
+- `demo_sizheng_008`：`chunk_szzjys_demo_025`
+- `demo_sizheng_009`：`chunk_szzjys_demo_033`
+- `demo_sizheng_010`：`chunk_szzjys_demo_034`
+
+这些 ID 均存在于当前真实 `text_chunks_demo.jsonl`，且与 query 主题一致。
+
+## 3. expected_citation_sections 与真实文义一致性
+
+已核对每条问题对应 chunk 的 `citation.section`：
+
+- `demo_sizheng_001`：`绪论` / `绪论 / 三、学习研究中国共产党思想政治教育史的目的、意义和方法`
+- `demo_sizheng_002`：`第一章... / 第一节... / 一、马克思学说在中国的最初传入` / `... / 三、马克思主义在论战中成为新文化运动的主流`
+- `demo_sizheng_003`：`第一章... / 第二节... / 二、党的一大与思想政治教育基本原则的确立`
+- `demo_sizheng_004`：`第二章... / 第一节... / 一、人民军队初创时期的思想政治教育 / （二）秋收起义和三湾改编`
+- `demo_sizheng_005`：`第二章... / 第三节... / 三、红军长征中的思想政治教育 / （二）鼓舞士气提高部队战斗力`
+- `demo_sizheng_006`：`第二章... / 第二节... / 一、中央《宣传工作决议案》的主要内容 / （三）宣传工作的组织领导`
+- `demo_sizheng_007`：`第三章... / 第二节加强党员干部的思想政治教育 / 二、抗日战争时期党的干部教育`
+- `demo_sizheng_008`：`第三章... / 第三节思想政治教育理论形成体系 / 二、思想政治教育若干重要论著的发表`
+- `demo_sizheng_009`：`第四章... / 第二节人民解放军的思想政治教育 / 一、“打开连队工作之门的三把重要钥匙” / （三）新式整军运动`
+- `demo_sizheng_010`：`第四章... / 第二节人民解放军的思想政治教育 / 二、瓦解敌军工作和教育改造国民党起义投诚部队 / （三）教育改造国民党被俘、起义部队`
+
+这些 `expected_citation_sections` 与当前 chunk 的 citation 元数据高度匹配，语义准确。
+
+## 4. API / 返回字段 检查清单
+
+### 4.1 API 接口
+
+- `GET /health`
+  - 期望返回：`{"status": "ok"}`
+- `POST /retrieve`
+  - 请求体格式：`{"query": "..."}`
+  - 当前实现：`src/api/main.py` 使用 `RetrieveRequest` 校验请求体，并调用 `src/retriever/hybrid_retriever.py` 的 `retrieve`。
+
+### 4.2 返回字段结构
+
+当前 `retrieve` 返回值包含：
+
+- `status`：`success`
+- `project`：项目名称
+- `query`：原始请求文本
+- `query_entities`：查询抽取的实体列表
+- `vector_hits`：向量召回结果列表
+- `graph_hits`：图谱召回结果列表
+- `hybrid_hits`：融合后结果列表
+
+### 4.3 各条目字段
+
+- `vector_hits` 中每条包含：
+  - `id`
+  - `source`
+  - `title`
+  - `text`
+  - `citation`
+  - `vector_score`
+- `graph_hits` 中每条包含：
+  - `id`
+  - `related_entities`
+  - `graph_score`
+- `hybrid_hits` 中每条包含：
+  - `id`
+  - `source`
+  - `title`
+  - `text`
+  - `citation`
+  - `vector_score`
+  - `graph_score`
+  - `hybrid_score`
+
+### 4.4 关键行为检查
+
+- 查询结果必须包含 `citation`，可用于展示“引用来源与章节”。
+- `hybrid_hits` 应按 `hybrid_score` 降序排序。
+- `vector_hits` 与 `graph_hits` 结果允许不完全重合，但 `hybrid_hits` 需展示两路融合得分。
+- 当前 mock 实现只有 `DACHUANG_RETRIEVE_MODE=mock` 且 `DACHUANG_LOCAL_MOCK_ACK=1` 时才会执行检索，否则返回空结果数组。
+
+## 5. 核心必演问题截图建议
+
+建议重点截图以下核心问题的 API 展示结果：
+
+- `demo_sizheng_001`
+- `demo_sizheng_002`
+- `demo_sizheng_003`
+- `demo_sizheng_004`
+- `demo_sizheng_005`
+- `demo_sizheng_009`
+
+这些问题既是核心 demo 问题，又能覆盖：
+- 文本 retrieval
+- citation section 展示
+- 核心事件与历史阶段
+- 混合召回结果的排序效果
+
+## 6. 发现与建议
+
+- `expected_chunk_ids` 均为真实 `chunk_szzjys_demo_*` 格式，满足用户要求；不存在 `chunk_006` 这种旧 ID。
+- `expected_citation_sections` 与当前 chunk metadata 一致，语义准确。
+- 建议在后续版本中为 `expected_citation_keywords` 增加更细粒度关键词，例如：
+  - `demo_sizheng_007` 可加入 `干部教育`
+  - `demo_sizheng_010` 可加入 `国民党被俘` / `起义部队`
+- 目前查询检查点均适合基于最新 `main` 进行整理。如果后续在 `zhangruiyang` 分支上操作，建议先基于最新 `main` 进行 rebase 或 cherry-pick，再提交，避免直接合并旧分支。
