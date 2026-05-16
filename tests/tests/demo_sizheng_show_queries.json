@@ -4,71 +4,79 @@
         "expected_entities": ["近代思想启蒙", "社会思潮", "思想演进"],
         "expected_citation_keywords": ["思想启蒙", "近代历程", "思潮演变"],
         "min_hybrid_hits": 2,
-        "target_chunk_ids": ["chunk_006", "chunk_009"],
-        "citation_section": "近代思政思想启蒙发展综述",
-        "is_core_demo": true
+        "expected_chunk_ids": ["chunk_006", "chunk_009"],
+        "expected_citation_sections": ["近代思政思想启蒙发展综述"],
+        "is_core_demo": true,
+        "is_suitable_for_demo": true
     },
     {
         "query": "近代早期爱国思潮形成的时代社会背景",
         "expected_entities": ["爱国思潮", "近代时局", "民众思想"],
         "expected_citation_keywords": ["爱国思想", "时代背景", "社会环境"],
         "min_hybrid_hits": 2,
-        "target_chunk_ids": ["chunk_012", "chunk_015"],
-        "citation_section": "近代爱国思想起源背景",
-        "is_core_demo": true
+        "expected_chunk_ids": ["chunk_012", "chunk_015"],
+        "expected_citation_sections": ["近代爱国思想起源背景"],
+        "is_core_demo": true,
+        "is_suitable_for_demo": true
     },
     {
         "query": "革命时期红色思政文化主要传播途径与载体",
         "expected_entities": ["红色文化", "思想传播", "革命宣传"],
         "expected_citation_keywords": ["红色思政", "传播方式", "思想宣讲"],
         "min_hybrid_hits": 3,
-        "target_chunk_ids": ["chunk_018", "chunk_021", "chunk_023"],
-        "citation_section": "红色思想传播体系梳理",
-        "is_core_demo": true
+        "expected_chunk_ids": ["chunk_018", "chunk_021", "chunk_023"],
+        "expected_citation_sections": ["红色思想传播体系梳理"],
+        "is_core_demo": true,
+        "is_suitable_for_demo": true
     },
     {
         "query": "传统民本思想对现代思政教育有哪些借鉴价值",
         "expected_entities": ["民本思想", "思政育人", "传统文化传承"],
         "expected_citation_keywords": ["民本理念", "育人价值", "文化转化"],
         "min_hybrid_hits": 2,
-        "target_chunk_ids": ["chunk_025", "chunk_027"],
-        "citation_section": "传统思想现代思政应用",
-        "is_core_demo": false
+        "expected_chunk_ids": ["chunk_025", "chunk_027"],
+        "expected_citation_sections": ["传统思想现代思政应用"],
+        "is_core_demo": false,
+        "is_suitable_for_demo": false
     },
     {
         "query": "革命阶段思想政治教育的核心目标与宗旨",
         "expected_entities": ["革命时期", "思政教育", "思想引领"],
         "expected_citation_keywords": ["革命思想教育", "育人宗旨", "初心引领"],
         "min_hybrid_hits": 2,
-        "target_chunk_ids": ["chunk_030", "chunk_032"],
-        "citation_section": "革命时期思想建设方向",
-        "is_core_demo": false
+        "expected_chunk_ids": ["chunk_030", "chunk_032"],
+        "expected_citation_sections": ["革命时期思想建设方向"],
+        "is_core_demo": false,
+        "is_suitable_for_demo": false
     },
     {
         "query": "国内不同区域思政思想发展存在哪些差异化特征",
         "expected_entities": ["地域思想", "思想差异", "区域文化"],
         "expected_citation_keywords": ["地域思政", "发展差异", "区域思潮"],
         "min_hybrid_hits": 2,
-        "target_chunk_ids": ["chunk_034", "chunk_036"],
-        "citation_section": "区域思政思想发展对比",
-        "is_core_demo": false
+        "expected_chunk_ids": ["chunk_034", "chunk_036"],
+        "expected_citation_sections": ["区域思政思想发展对比"],
+        "is_core_demo": false,
+        "is_suitable_for_demo": false
     },
     {
         "query": "社会时代变革如何推动思政教育理念迭代升级",
         "expected_entities": ["时代变革", "思政理念", "思想革新"],
         "expected_citation_keywords": ["时代演进", "理念更新", "思政发展"],
         "min_hybrid_hits": 3,
-        "target_chunk_ids": ["chunk_037", "chunk_038", "chunk_039"],
-        "citation_section": "思政理念历史演进脉络",
-        "is_core_demo": false
+        "expected_chunk_ids": ["chunk_037", "chunk_038", "chunk_039"],
+        "expected_citation_sections": ["思政理念历史演进脉络"],
+        "is_core_demo": false,
+        "is_suitable_for_demo": false
     },
     {
         "query": "思政历史文献史料在日常思政教学中如何落地运用",
         "expected_entities": ["思政史料", "历史文献", "教学实践"],
         "expected_citation_keywords": ["史料应用", "文献参考", "思政教学"],
         "min_hybrid_hits": 2,
-        "target_chunk_ids": ["chunk_002", "chunk_004"],
-        "citation_section": "思政史料实践应用方法",
-        "is_core_demo": false
+        "expected_chunk_ids": ["chunk_002", "chunk_004"],
+        "expected_citation_sections": ["思政史料实践应用方法"],
+        "is_core_demo": false,
+        "is_suitable_for_demo": false
     }
 ]
