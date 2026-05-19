@@ -7,8 +7,8 @@ from matplotlib import font_manager
 from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch, Rectangle
 
 
-ROOT = Path(__file__).resolve().parents[1]
-OUT_DIR = ROOT / "docs" / "figures"
+TASK_ROOT = Path(__file__).resolve().parents[1]
+OUT_DIR = TASK_ROOT / "figures"
 
 
 def get_cjk_font():

@@ -28,27 +28,29 @@
   - 负责统一数据字段规范
   - 为 ETL、向量索引、图谱构建和接口返回提供共同字段基础
 
-- `tests/demo_queries.json`
-  - 负责本地验收问题集合
-  - 覆盖史实、叙事、考点、地理四类问题
+- `tests/demo_queries_sizheng_history.json`
+  - 负责当前思政史 Demo 验收问题集合
+  - 覆盖绪论、建党、军队政治工作、抗战、解放战争等展示问题
 
 ## 3. 当前本地实现说明
 
-为了保证链路先跑通，本地采用 `team/mock` 双模式：
+为了保证链路先跑通，本地仍保留 `team/mock` 双模式：
 
 - `team`
   - 团队默认模式
-  - 返回固定结构，但不主动构造模拟命中
+  - 返回固定结构，避免默认环境误进入 Demo 命中逻辑
 
 - `mock`
-  - 学习与本地联调模式
-  - 使用固定知识池模拟：
+  - 本地 Demo 与联调模式
+  - 当前已经从代码内写死 mock 数据升级为读取 `data/processed/text_chunks_demo.jsonl`
+  - 用 40 条《中国共产党思想政治教育史》Demo chunks 验证：
     - query 实体提取
-    - 向量 Top-K 候选
-    - 图谱 Top-K 候选
+    - 轻量文本候选召回
+    - 轻量 graph_hits 返回
     - 融合排序结果
+    - citation.doc / citation.section / citation.page 返回
 
-当前 `mock` 版的意义是锁死流程骨架，而不是替代真实检索系统。
+当前 Demo 版的意义是用真实清洗样本验证接口契约、citation 返回和融合评分结构，而不是替代正式向量库与知识图谱。
 
 融合分暂按作战文档口径执行：
 
@@ -88,8 +90,8 @@
 后续回到实验室环境时，优先替换 `src/retriever/hybrid_retriever.py` 内部实现，不改 API 契约：
 
 1. 用真实实体识别替换固定词表
-2. 用真实向量库替换 mock 向量候选
-3. 用真实图谱检索替换 mock 图候选
+2. 用 FAISS / embedding 替换当前轻量文本召回
+3. 用 GraphSim / NetworkX 替换当前轻量 graph_hits
 4. 保留统一融合输出结构
 
 这样可以保证前端、测试脚本和团队协作接口不因为底层实现变化而频繁返工。
