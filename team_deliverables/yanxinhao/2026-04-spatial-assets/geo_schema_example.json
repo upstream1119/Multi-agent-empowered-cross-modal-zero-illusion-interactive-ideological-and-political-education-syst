@@ -1,0 +1,92 @@
+{
+  "metadata": {
+    "name": "geo_schema_example",
+    "owner": "yanxinhao",
+    "purpose": "April spatial-data contract for future map, timeline, and sandbox frontend tests."
+  },
+  "coordinate_policy": {
+    "input_coord_sys": "BD-09",
+    "output_coord_sys": "WGS84",
+    "geojson_coordinate_order": "[lng, lat]",
+    "conversion": "BD-09 -> GCJ-02 -> WGS84"
+  },
+  "landmark_record": {
+    "id": "string",
+    "name": "string",
+    "category": "红色地标",
+    "location": {
+      "name": "string",
+      "lng": "float, WGS84",
+      "lat": "float, WGS84",
+      "coord_sys": "WGS84",
+      "source_coord_sys": "BD-09",
+      "source_lng": "float",
+      "source_lat": "float"
+    },
+    "time": {
+      "start": "string|null",
+      "end": "string|null",
+      "display": "string"
+    },
+    "summary": "string",
+    "entities": [
+      "string"
+    ],
+    "tags": [
+      "string"
+    ],
+    "citation": {
+      "doc": "string",
+      "section": "string",
+      "page": "integer|null"
+    }
+  },
+  "timeline_event": {
+    "id": "string",
+    "date": "YYYY-MM-DD or YYYY-MM",
+    "title": "string",
+    "text": "string",
+    "location": "same structure as landmark.location",
+    "related_landmarks": [
+      "string"
+    ],
+    "entities": [
+      "string"
+    ],
+    "tags": [
+      "string"
+    ],
+    "citation": {
+      "doc": "string",
+      "section": "string",
+      "page": "integer|null",
+      "source_excerpt": "string"
+    }
+  },
+  "geojson_feature": {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        "lng",
+        "lat"
+      ]
+    },
+    "properties": {
+      "id": "string",
+      "name": "string",
+      "category": "string",
+      "time": "object",
+      "summary": "string",
+      "entities": [
+        "string"
+      ],
+      "tags": [
+        "string"
+      ],
+      "citation": "object",
+      "coord_sys": "WGS84",
+      "source_coord_sys": "BD-09"
+    }
+  }
+}
