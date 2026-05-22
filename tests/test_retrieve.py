@@ -2,6 +2,7 @@ import json
 import os
 from pathlib import Path
 
+from src.generator.template_generator import NO_EVIDENCE_ANSWER
 from src.retriever.hybrid_retriever import retrieve
 
 
@@ -34,6 +35,9 @@ def test_demo_queries_return_expected_evidence(monkeypatch):
 
         hybrid_hits = result["hybrid_hits"]
         assert len(hybrid_hits) >= case["min_hybrid_hits"], case["id"]
+        assert result["answer"], case["id"]
+        assert result["citations_used"], case["id"]
+        assert len(result["citations_used"]) <= len(hybrid_hits), case["id"]
 
         for hit in hybrid_hits:
             assert REQUIRED_HYBRID_FIELDS.issubset(hit), case["id"]
@@ -44,6 +48,11 @@ def test_demo_queries_return_expected_evidence(monkeypatch):
             assert hit["citation"].get("section"), case["id"]
             for keyword in case["expected_citation_keywords"]:
                 assert keyword in hit["citation"].get("doc", ""), case["id"]
+
+        for citation in result["citations_used"]:
+            assert citation["id"], case["id"]
+            assert citation["citation"].get("doc"), case["id"]
+            assert citation["citation"].get("section"), case["id"]
 
 
 def test_team_mode_keeps_fixed_empty_contract(monkeypatch):
@@ -56,3 +65,5 @@ def test_team_mode_keeps_fixed_empty_contract(monkeypatch):
     assert result["vector_hits"] == []
     assert result["graph_hits"] == []
     assert result["hybrid_hits"] == []
+    assert result["answer"] == NO_EVIDENCE_ANSWER
+    assert result["citations_used"] == []
