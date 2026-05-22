@@ -3,6 +3,8 @@ import os
 from functools import lru_cache
 from pathlib import Path
 
+from src.generator.template_generator import generate_answer_from_hits
+
 
 PROJECT_NAME = "多智能体赋能的跨模态零幻觉交互式思政教育系统"
 TEAM_MODE = "team"
@@ -198,7 +200,9 @@ def _build_response(
     vector_hits: list[dict],
     graph_hits: list[dict],
     hybrid_hits: list[dict],
+    generated: dict | None = None,
 ) -> dict:
+    generated = generated or {"answer": "", "citations_used": []}
     return {
         "status": "success",
         "project": PROJECT_NAME,
@@ -207,6 +211,8 @@ def _build_response(
         "vector_hits": vector_hits,
         "graph_hits": graph_hits,
         "hybrid_hits": hybrid_hits,
+        "answer": generated["answer"],
+        "citations_used": generated["citations_used"],
     }
 
 
@@ -229,10 +235,13 @@ def retrieve(query: str) -> dict:
         query_entities = []
         vector_hits, graph_hits, hybrid_hits = [], [], []
 
+    generated = generate_answer_from_hits(query_text, hybrid_hits)
+
     return _build_response(
         query=query_text,
         query_entities=query_entities,
         vector_hits=vector_hits,
         graph_hits=graph_hits,
         hybrid_hits=hybrid_hits,
+        generated=generated,
     )
