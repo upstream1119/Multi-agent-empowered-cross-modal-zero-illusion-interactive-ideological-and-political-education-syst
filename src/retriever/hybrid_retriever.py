@@ -4,6 +4,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from src.generator.template_generator import generate_answer_from_hits
+from src.reviewer.source_checker import check_answer_sources
 
 
 PROJECT_NAME = "多智能体赋能的跨模态零幻觉交互式思政教育系统"
@@ -19,6 +20,9 @@ DEMO_CHUNKS_PATH = REPO_ROOT / "data" / "processed" / "text_chunks_demo.jsonl"
 
 # 当前阶段用固定词表演示 query -> entities 的流程，后续替换为真实实体识别。
 MOCK_ENTITY_MAP = {
+    "抗日战争时期党的干部教育": "干部教育",
+    "党的干部教育": "干部教育",
+    "干部教育": "干部教育",
     "遵义会议": "遵义会议",
     "长征": "长征",
     "毛泽东": "毛泽东",
@@ -34,6 +38,11 @@ MOCK_ENTITY_MAP = {
     "精神": "革命精神",
     "革命精神": "革命精神",
 }
+
+
+def _count_keyword_hits(keywords: list[str], content: str) -> int:
+    return sum(1 for keyword in keywords if keyword and keyword in content)
+
 
 @lru_cache(maxsize=1)
 def _load_demo_knowledge_base() -> list[dict]:
@@ -79,13 +88,19 @@ def _score_vector_hit(query: str, query_entities: list[str], item: dict) -> floa
     score = 0.0
     entities = item.get("entities", [])
     text = item.get("text", "")
+    title = item.get("title", "")
+    citation_section = item.get("citation", {}).get("section", "")
     tags = item.get("tags", [])
     topic = item.get("topic", "")
 
     if any(entity in entities for entity in query_entities):
         score += 0.55
-    if any(entity in text for entity in query_entities):
-        score += 0.25
+    text_hits = _count_keyword_hits(query_entities, text)
+    title_hits = _count_keyword_hits(query_entities, title)
+    section_hits = _count_keyword_hits(query_entities, citation_section)
+    score += min(text_hits * 0.18, 0.36)
+    score += min(title_hits * 0.2, 0.4)
+    score += min(section_hits * 0.12, 0.24)
     if any(tag in query for tag in tags):
         score += 0.1
     if topic and topic in query:
@@ -201,8 +216,14 @@ def _build_response(
     graph_hits: list[dict],
     hybrid_hits: list[dict],
     generated: dict | None = None,
+    source_check: dict | None = None,
 ) -> dict:
     generated = generated or {"answer": "", "citations_used": []}
+    source_check = source_check or {
+        "status": "no_evidence",
+        "issues": [],
+        "checked_citation_count": 0,
+    }
     return {
         "status": "success",
         "project": PROJECT_NAME,
@@ -213,6 +234,7 @@ def _build_response(
         "hybrid_hits": hybrid_hits,
         "answer": generated["answer"],
         "citations_used": generated["citations_used"],
+        "source_check": source_check,
     }
 
 
@@ -236,6 +258,10 @@ def retrieve(query: str) -> dict:
         vector_hits, graph_hits, hybrid_hits = [], [], []
 
     generated = generate_answer_from_hits(query_text, hybrid_hits)
+    source_check = check_answer_sources(
+        generated["answer"],
+        generated["citations_used"],
+    )
 
     return _build_response(
         query=query_text,
@@ -244,4 +270,5 @@ def retrieve(query: str) -> dict:
         graph_hits=graph_hits,
         hybrid_hits=hybrid_hits,
         generated=generated,
+        source_check=source_check,
     )
