@@ -4,6 +4,7 @@ from pathlib import Path
 
 from src.generator.template_generator import NO_EVIDENCE_ANSWER
 from src.retriever.hybrid_retriever import retrieve
+from src.reviewer.policy_checker import NEED_REVIEW_STATUS
 from src.reviewer.source_checker import NO_EVIDENCE_STATUS
 
 
@@ -41,6 +42,11 @@ def test_demo_queries_return_expected_evidence(monkeypatch):
         assert len(result["citations_used"]) <= len(hybrid_hits), case["id"]
         assert result["source_check"]["status"] in {"pass", "warning"}, case["id"]
         assert result["source_check"]["checked_citation_count"] == len(result["citations_used"]), case["id"]
+        assert result["policy_check"]["status"] in {"pass", "warning"}, case["id"]
+        assert isinstance(result["policy_check"]["risk_types"], list), case["id"]
+        assert isinstance(result["policy_check"]["issues"], list), case["id"]
+        assert result["policy_check"]["suggestion"], case["id"]
+        assert result["policy_check"]["feedback_collection"]["label_options"], case["id"]
 
         for hit in hybrid_hits:
             assert REQUIRED_HYBRID_FIELDS.issubset(hit), case["id"]
@@ -82,3 +88,5 @@ def test_team_mode_keeps_fixed_empty_contract(monkeypatch):
     assert result["citations_used"] == []
     assert result["source_check"]["status"] == NO_EVIDENCE_STATUS
     assert result["source_check"]["checked_citation_count"] == 0
+    assert result["policy_check"]["status"] == NEED_REVIEW_STATUS
+    assert "evidence_missing" in result["policy_check"]["risk_types"]

@@ -4,6 +4,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from src.generator.template_generator import generate_answer_from_hits
+from src.reviewer.policy_checker import check_policy_risk
 from src.reviewer.source_checker import check_answer_sources
 
 
@@ -217,12 +218,25 @@ def _build_response(
     hybrid_hits: list[dict],
     generated: dict | None = None,
     source_check: dict | None = None,
+    policy_check: dict | None = None,
 ) -> dict:
     generated = generated or {"answer": "", "citations_used": []}
     source_check = source_check or {
         "status": "no_evidence",
         "issues": [],
         "checked_citation_count": 0,
+    }
+    policy_check = policy_check or {
+        "status": "need_review",
+        "risk_types": ["not_checked"],
+        "issues": ["政治红线审查尚未执行。"],
+        "suggestion": "请执行 policy_check 后再输出。",
+        "feedback_collection": {
+            "stage": "not_started",
+            "recommended_reviewer": "等待规则初筛。",
+            "expert_review_priority": "high",
+            "label_options": [],
+        },
     }
     return {
         "status": "success",
@@ -235,6 +249,7 @@ def _build_response(
         "answer": generated["answer"],
         "citations_used": generated["citations_used"],
         "source_check": source_check,
+        "policy_check": policy_check,
     }
 
 
@@ -262,6 +277,11 @@ def retrieve(query: str) -> dict:
         generated["answer"],
         generated["citations_used"],
     )
+    policy_check = check_policy_risk(
+        generated["answer"],
+        generated["citations_used"],
+        source_check,
+    )
 
     return _build_response(
         query=query_text,
@@ -271,4 +291,5 @@ def retrieve(query: str) -> dict:
         hybrid_hits=hybrid_hits,
         generated=generated,
         source_check=source_check,
+        policy_check=policy_check,
     )
