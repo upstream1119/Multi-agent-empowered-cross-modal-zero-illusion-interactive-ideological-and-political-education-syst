@@ -3,7 +3,7 @@ import os
 from functools import lru_cache
 from pathlib import Path
 
-from src.generator.template_generator import generate_answer_from_hits
+from src.generator.evidence_generator import generate_answer
 from src.reviewer.policy_checker import check_policy_risk
 from src.reviewer.source_checker import check_answer_sources
 
@@ -272,7 +272,7 @@ def retrieve(query: str) -> dict:
         query_entities = []
         vector_hits, graph_hits, hybrid_hits = [], [], []
 
-    generated = generate_answer_from_hits(query_text, hybrid_hits)
+    generated = generate_answer(query_text, hybrid_hits)
     source_check = check_answer_sources(
         generated["answer"],
         generated["citations_used"],
