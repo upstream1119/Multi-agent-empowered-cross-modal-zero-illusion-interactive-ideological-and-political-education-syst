@@ -33,6 +33,8 @@ def test_llm_mode_keeps_contract_and_builds_prompt(monkeypatch):
     result = generate_answer("思想政治教育为什么重要？", [_hit()])
 
     assert result["generator_mode"] == "llm"
+    assert result["generator_provider"] == "stub"
+    assert result["provider_status"] == "stub_no_external_call"
     assert result["answer"]
     assert result["citations_used"]
     assert "只能依据给定证据回答" in result["prompt_preview"]

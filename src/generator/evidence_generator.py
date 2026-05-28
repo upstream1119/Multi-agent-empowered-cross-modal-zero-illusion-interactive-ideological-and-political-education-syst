@@ -1,10 +1,12 @@
 import os
 
+from src.generator.llm_provider import get_llm_provider
 from src.generator.template_generator import generate_answer_from_hits
 
 
 TEMPLATE_MODE = "template"
 LLM_MODE = "llm"
+DEFAULT_PROVIDER = "stub"
 
 
 def _resolve_generator_mode() -> str:
@@ -45,10 +47,17 @@ def build_evidence_prompt(query: str, hybrid_hits: list[dict], max_hits: int = 3
 def generate_answer(query: str, hybrid_hits: list[dict]) -> dict:
     mode = _resolve_generator_mode()
     if mode == LLM_MODE:
-        # v0 先固定受控 prompt 和输出契约，真实国内模型 provider 下一轮接入。
+        prompt = build_evidence_prompt(query, hybrid_hits)
+        provider_name = os.getenv("DACHUANG_LLM_PROVIDER", DEFAULT_PROVIDER).strip().lower()
+        provider = get_llm_provider(provider_name)
+        provider_result = provider.generate(prompt)
+
+        # v0 先固定 provider 接口，真实国内模型 provider 下一轮接入。
         generated = generate_answer_from_hits(query, hybrid_hits)
         generated["generator_mode"] = LLM_MODE
-        generated["prompt_preview"] = build_evidence_prompt(query, hybrid_hits)
+        generated["generator_provider"] = provider_result.provider_name
+        generated["provider_status"] = provider_result.status
+        generated["prompt_preview"] = prompt
         return generated
 
     generated = generate_answer_from_hits(query, hybrid_hits)
