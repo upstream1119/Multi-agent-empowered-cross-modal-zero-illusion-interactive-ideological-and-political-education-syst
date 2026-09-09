@@ -25,8 +25,33 @@ function Fail([string]$msg, [int]$code=1) {
 function Info([string]$msg) { Write-Host "INFO: $msg" -ForegroundColor Cyan }
 
 # Ensure git is available
-if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-    Fail 'git command not found. Install Git and ensure it is on PATH.' 2
+$gitCmd = Get-Command git -ErrorAction SilentlyContinue
+if (-not $gitCmd) {
+    # Look for common Git for Windows install locations
+    $possible = @(
+        "$env:ProgramFiles\Git\cmd\git.exe",
+        "$env:ProgramFiles(x86)\Git\cmd\git.exe",
+        "$env:LocalAppData\Programs\Git\cmd\git.exe"
+    )
+    $found = $possible | Where-Object { Test-Path $_ } | Select-Object -First 1
+    if ($found) {
+        Write-Host "git executable found at: $found" -ForegroundColor Yellow
+        Write-Host "It appears git is installed but not on your PATH." -ForegroundColor Cyan
+        Write-Host "Quick fixes:" -ForegroundColor Cyan
+        Write-Host "  - Reopen this terminal (some installers add git to PATH only after restart)." -ForegroundColor Green
+        Write-Host "  - Run the script from 'Git Bash' or a terminal where git is available." -ForegroundColor Green
+        Write-Host "  - Add Git's `cmd` folder to your PATH (example PowerShell command below):" -ForegroundColor Green
+        $cmdDir = Split-Path $found -Parent
+        Write-Host "    [Environment]::SetEnvironmentVariable('PATH', [Environment]::GetEnvironmentVariable('PATH','User') + ';$cmdDir', 'User')" -ForegroundColor Magenta
+        Write-Host "After adding to PATH, restart your terminal and rerun this script." -ForegroundColor Cyan
+        Fail 'git is installed but not on PATH. Add it to PATH and reopen terminal.' 2
+    } else {
+        Write-Host "git command not found on PATH." -ForegroundColor Red
+        Write-Host "Install Git for Windows: https://git-scm.com/download/win" -ForegroundColor Cyan
+        Write-Host "Or open 'Git Bash' which includes git on PATH by default." -ForegroundColor Cyan
+        Write-Host "After installing, restart your terminal and rerun this script." -ForegroundColor Cyan
+        Fail 'git command not found. Install Git and ensure it is on PATH.' 2
+    }
 }
 
 # Ensure we're inside a git repo
